@@ -3,117 +3,1124 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Outfit Combo Quest — Regenerated</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Outfit Combo Quest — Enhanced</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+      --glass-surface: rgba(28, 28, 28, 0.85);
+      --glass-border: rgba(100, 100, 100, 0.25);
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.5);
+      --accent: #0ea5e9;
+      --highlight: #60a5fa;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-bright: #ffffff;
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --shadow-lg: 0 25px 60px -15px rgba(0,0,0,0.9);
+      --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background Effects */
+    .bg-effects {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .bg-glow-1 {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      filter: blur(60px);
+      animation: float-1 20s ease-in-out infinite alternate;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      bottom: 5%;
+      right: 10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+      filter: blur(70px);
+      animation: float-2 25s ease-in-out infinite alternate-reverse;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--text-bright);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .logo-box {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #1d4ed8, #0ea5e9, #8b5cf6);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-glow);
+      transform: rotate(-3deg);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.4s;
+    }
+
+    .logo-box:hover {
+      transform: rotate(0deg) scale(1.08);
+    }
+
+    .logo-box img {
+      width: 70%;
+      height: auto;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Navigation */
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .menu button {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 20px;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .menu button:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      transform: translateX(8px);
+    }
+
+    .menu button.active {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.05));
+      color: var(--text-bright);
+    }
+
+    /* Game Elements - SIMPLIFIED */
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.6);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 30px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .stat-pill {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-val {
+      color: var(--highlight);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .preview-stage {
+      background: linear-gradient(180deg, rgba(28,28,28,0.5), rgba(10,10,10,0.8));
+      border-radius: var(--radius-lg);
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      border: 1px solid var(--glass-border);
+      position: relative;
+    }
+
+    .slots-container {
+      display: flex;
+      gap: 25px;
+    }
+
+    .slot {
+      width: 140px;
+      height: 180px;
+      background: #111111;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .slot:hover {
+      transform: translateY(-5px);
+      border-color: var(--highlight);
+    }
+
+    .slot-icon {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, #1f2937, #111827);
+      color: var(--highlight);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      margin-bottom: 15px;
+      box-shadow: inset 0 4px 10px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .slot-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      border: none;
+      padding: 16px 28px;
+      border-radius: var(--radius-md);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      color: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    }
+
+    .btn-accent {
+      background: linear-gradient(135deg, var(--accent), #0284c7);
+      color: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .btn-accent:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text-main);
+      color: var(--text-main);
+      background: rgba(255,255,255,0.05);
+    }
+
+    select {
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      border: 2px solid rgba(255,255,255,0.2);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-main);
+      background: rgba(10, 10, 10, 0.7);
+      cursor: pointer;
+      outline: none;
+      font-weight: 600;
+    }
+
+    .challenge-box {
+      background: linear-gradient(145deg, rgba(10, 10, 10, 0.5), rgba(20, 20, 20, 0.8));
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .input-field {
+      flex: 1;
+      padding: 18px 22px;
+      border-radius: var(--radius-md);
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
+      color: var(--text-bright);
+      font-size: 1.1rem;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--primary);
+    }
+
+    #feedback {
+      margin-top: 20px;
+      min-height: 40px;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+
+    /* Content Sections */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .doc-content {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 15px;
+    }
+
+    .doc-content h2 {
+      color: var(--highlight);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(96, 165, 250, 0.3);
+    }
+
+    /* Leaderboard */
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .leaderboard-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-weight: 600;
+      color: var(--text-main);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .leaderboard-list li:first-child {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), transparent);
+      color: #fbbf24;
+      font-weight: 800;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float-1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(30px, 30px) rotate(180deg); }
+    }
+
+    @keyframes float-2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-40px, -20px) rotate(-180deg); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .shake {
+      animation: shake 0.5s ease-in-out;
+      border-color: var(--danger) !important;
+    }
+
+    .pop {
+      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .slots-container {
+        gap: 15px;
+      }
+      
+      .slot {
+        width: 120px;
+        height: 160px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+      
+      .logo-box {
+        transform: rotate(0);
+      }
+      
+      .slots-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .slot {
+        width: 180px;
+        height: 140px;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 0 25px;
+      }
+      
+      .slot-icon {
+        margin-bottom: 0;
+        margin-right: 20px;
+        width: 70px;
+        height: 70px;
+      }
+      
+      .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .slot {
+        width: 160px;
+      }
+      
+      .menu {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+      }
+      
+      .menu button {
+        white-space: nowrap;
+        padding: 12px 15px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Background Effects -->
+  <div class="bg-effects">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+  </div>
+
   <div class="container">
-    <div class="header">
-      <img src="Logo.png" alt="Logo" class="site-logo">
+    <header>
+      <div class="logo-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/3082/3082019.png" alt="Outfit Combo Logo">
+      </div>
+      
       <div>
         <h1>Outfit Combo Quest</h1>
-        <p class="lead">Counting principles made playful — build outfits, apply filters, and count possibilities.</p>
+        <p style="color: var(--text-muted); margin-top: 8px;">Master Combinatorics Through Fashion</p>
       </div>
-    </div>
+    </header>
 
     <div class="layout">
-      <aside class="sidebar">
+      <nav class="card">
         <div class="menu">
-          <button class="active" data-view="game">Play Game</button>
-          <button data-view="tutorial">Tutorial</button>
-          <button data-view="docs">Documentation</button>
-          <button data-view="leaderboard">Leaderboard</button>
-          <button data-view="about">About & Credits</button>
+          <button class="active" data-view="game">
+            <i class="fas fa-gamepad"></i> Play Game
+          </button>
+          <button data-view="tutorial">
+            <i class="fas fa-graduation-cap"></i> Tutorial
+          </button>
+          <button data-view="docs">
+            <i class="fas fa-book"></i> Documentation
+          </button>
+          <button data-view="leaderboard">
+            <i class="fas fa-crown"></i> Leaderboard
+          </button>
+          <button data-view="about">
+            <i class="fas fa-info-circle"></i> About
+          </button>
         </div>
-      </aside>
+      </nav>
 
       <main class="card" id="panel">
-        <section id="view-game">
-          <div class="game-top">
+        <!-- Game View -->
+        <section id="view-game" class="content-section active">
+          <div class="game-header">
             <div>
-              <strong>Level:</strong> <span id="level-label">Beginner</span>
-              <div class="meta">Time left: <span id="time-limit">60</span>s • Lives: <span id="lives">3</span></div>
+              <div class="stat-pill">Level: 
+                <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px;" id="level-label">Beginner</span>
+              </div>
+              <div style="margin-top: 8px; font-size: 14px; color: var(--text-muted)">
+                Timer: <strong id="time-limit" style="color: var(--highlight)">60</strong>s
+              </div>
             </div>
-            <div class="stats">
-              <div class="badge">Score: <span id="score">0</span></div>
-              <div style="margin-left:8px;color:var(--plum)">Streak: <strong id="streak">0</strong></div>
+            <div style="text-align: right">
+              <div class="stat-pill">Score: <span class="stat-val" id="score">0</span></div>
+              <div style="font-size: 14px; color: var(--text-muted); margin-top: 4px">
+                Streak: <strong id="streak" style="color: var(--accent)">0</strong>
+              </div>
+              <div style="font-size: 14px; color: var(--text-muted); margin-top: 4px">
+                Lives: <span id="lives" style="color: var(--danger)">♥♥♥</span>
+              </div>
             </div>
           </div>
 
-          <div class="preview" id="preview">
-            <div class="slots">
-              <div class="slot"><div id="shirt-item" class="label">—</div><div class="label">Shirts</div></div>
-              <div class="slot"><div id="pants-item" class="label">—</div><div class="label">Bottoms</div></div>
-              <div class="slot"><div id="shoes-item" class="label">—</div><div class="label">Shoes</div></div>
+          <div class="preview-stage">
+            <div style="position: absolute; top: 20px; left: 20px; font-weight: 700; color: rgba(255,255,255,0.3); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;">
+              Inventory Scanner
+            </div>
+            <div class="slots-container">
+              <div class="slot" id="slot-shirt">
+                <div class="slot-icon" id="shirt-item">?</div>
+                <div class="slot-label">Tops</div>
+              </div>
+              <div class="slot" id="slot-pants">
+                <div class="slot-icon" id="pants-item">?</div>
+                <div class="slot-label">Bottoms</div>
+              </div>
+              <div class="slot" id="slot-shoes">
+                <div class="slot-icon" id="shoes-item">?</div>
+                <div class="slot-label">Shoes</div>
+              </div>
             </div>
           </div>
 
-          <div class="controls">
-            <button class="btn" id="draw-btn">Generate Scenario</button>
-            <button class="ghost" id="hint-btn">Give Hint</button>
-            <button class="ghost" id="submit-btn">Submit Answer</button>
-            <label style="margin-left:auto;color:var(--steel)">Difficulty:
-              <select id="difficulty" class="input" style="width:160px">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </label>
+          <div class="controls-bar">
+            <button class="btn btn-primary" id="draw-btn">
+              <i class="fas fa-bolt"></i>
+              <span>Generate Scenario</span>
+            </button>
+            <div style="flex: 1"></div>
+            <button class="btn btn-ghost" id="hint-btn">
+              <i class="fas fa-lightbulb"></i>
+              Hint
+            </button>
+            <select id="difficulty">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
           </div>
 
-          <div class="challenge">
-            <h3 id="challenge-title">Challenge</h3>
-            <div class="meta" id="challenge-desc">Press "Generate Scenario" to start.</div>
-
-            <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-              <div>Answer: <input id="answer-input" class="input" type="text" placeholder="Enter count or expression (e.g. 3*2*4)"></div>
-              <div class="meta">(Expressions allowed)</div>
+          <div class="challenge-box">
+            <h3 id="challenge-title">Welcome to the Studio</h3>
+            <p id="challenge-desc" style="color: var(--text-muted); margin-top: 8px;">
+              Select a difficulty and press <strong>Generate Scenario</strong> to begin the challenge.
+            </p>
+            
+            <div class="input-group">
+              <input id="answer-input" class="input-field" type="text" placeholder="Enter answer (e.g. 24 or 4*3*2)" autocomplete="off">
+              <button class="btn btn-accent" id="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                Submit
+              </button>
             </div>
-            <div id="feedback" style="margin-top:10px"></div>
+            <div id="feedback"></div>
           </div>
         </section>
 
-        <section id="view-tutorial" style="display:none">
-          <h2>Tutorial — How to play</h2>
-          <ol>
-            <li>Choose a difficulty.</li>
-            <li>Click <strong>Generate Scenario</strong> to produce a story-style problem.</li>
-            <li>Deduce usable counts and enter your answer.</li>
-            <li>Submit to earn points or lose lives.</li>
-          </ol>
-        </section>
-
-        <section id="view-docs" style="display:none">
-          <div class="doc">
-            <h2>Documentation</h2>
-            <h3>Game Overview</h3>
-            <p><strong>Goal:</strong> Use counting principles to compute valid outfit combinations under various conditions.</p>
-            <h3>Example Problems</h3>
+        <!-- Tutorial View -->
+        <section id="view-tutorial" class="content-section">
+          <div class="doc-content">
+            <h2>How to Play</h2>
+            <p>Welcome to Outfit Combo Quest! Your goal is to help Luna prepare for events by calculating the number of possible outfit combinations based on her inventory.</p>
+            
+            <h3>Step-by-Step</h3>
             <ol>
-              <li>Beginner: 4 tops, 3 bottoms, 2 shoes → 4×3×2 = 24</li>
-              <li>Intermediate: Pastel filter → multiply valid counts</li>
-              <li>Advanced: Remove wrinkle items before multiplying</li>
+              <li><strong>Difficulty:</strong> Select Beginner, Intermediate, or Advanced. Harder levels introduce restrictions (colors, fabric types).</li>
+              <li><strong>Scenario:</strong> Click "Generate" to receive a unique problem. The slots will display the raw numbers.</li>
+              <li><strong>Logic:</strong> 
+                <br><em>Beginner:</em> Multiply total items.
+                <br><em>Intermediate:</em> Filter items by description (e.g., only "Pastel" items), then multiply.
+                <br><em>Advanced:</em> Deduce counts (Total - Restricted items) before multiplying.
+              </li>
+              <li><strong>Answer:</strong> Type the total number. You can also type math expressions like <code>5*3*2</code>.</li>
             </ol>
           </div>
         </section>
 
-        <section id="view-leaderboard" style="display:none">
-          <h2>Leaderboard</h2>
-          <ol id="lb-list" class="leaderboard"></ol>
-          <div style="margin-top:12px;color:var(--steel)">Your name: <input id="player-name" class="input" placeholder="Type name"></div>
+        <!-- Documentation View -->
+        <section id="view-docs" class="content-section">
+          <div class="doc-content">
+            <h2>Documentation</h2>
+            
+            <h3>Game Overview</h3>
+            <p><strong>Goal:</strong> Build valid outfits (top + bottom + shoes) that satisfy scenario conditions. Players compute the sample space size using combinatorial principles.</p>
+            
+            <h3>Mathematical Concepts</h3>
+            <ul>
+              <li><strong>Fundamental Counting Principle (FCP):</strong> If task A has <em>m</em> ways and task B has <em>n</em> ways, doing both has <em>m × n</em> ways.</li>
+              <li><strong>Filtering/Restrictions:</strong> In Intermediate/Advanced levels, the sample space is reduced ($N_{valid} \subset N_{total}$) before applying FCP.</li>
+              <li><strong>Complement Rule:</strong> In Advanced levels, sometimes it is easier to calculate $Total - Invalid$.</li>
+            </ul>
+
+            <h3>Sample Problem</h3>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1)">
+              <strong>Scenario:</strong> 7 tops (4 wrinkle), 5 bottoms (1 wrinkles), 4 shoes.<br>
+              <strong>Question:</strong> How many wrinkle-free outfits?<br>
+              <strong>Solution:</strong> $(7-4) \times (5-1) \times 4 = 3 \times 4 \times 4 = 48$.
+            </div>
+          </div>
         </section>
 
-        <section id="view-about" style="display:none">
-          <h2>About & Credits</h2>
-          <p>Outfit Combo Quest — regenerated package. Logo included.</p>
+        <!-- Leaderboard View -->
+        <section id="view-leaderboard" class="content-section">
+          <h2>Top Stylists</h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px">Local high scores on this device.</p>
+          
+          <ul id="lb-list" class="leaderboard-list">
+            <!-- Leaderboard entries will be added here -->
+          </ul>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1);">
+            <label style="font-size: 14px; color: var(--text-muted); display: block; margin-bottom: 8px">
+              Current Player Name:
+            </label>
+            <input id="player-name" class="input-field" placeholder="Enter your name" value="Guest Stylist">
+          </div>
         </section>
 
+        <!-- About View -->
+        <section id="view-about" class="content-section">
+          <div class="doc-content">
+            <h2>About</h2>
+            <p><strong>Outfit Combo Quest (Enhanced)</strong> is an interactive educational tool designed to visualize and test <strong>Combinatorics</strong> concepts.</p>
+            <p>Created by IT-2N Group 2.</p>
+            <p>SERNA, Ralph Jeric M.  |  DE GUZMAN, Wildan Mark S.  |  MERCADO, Rochelle</p>
+            <p>Version: Enhanced Edition</p>
+          </div>
+        </section>
       </main>
     </div>
-
-    <div class="footer-note">Made for Discrete Mathematics — Outfit Combo Quest (Regenerated)</div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Game State
+    const state = {
+      difficulty: 'beginner',
+      score: 0,
+      streak: 0,
+      lives: 3,
+      roundData: null,
+      timer: null,
+      timeLeft: 60,
+      isAnimating: false
+    };
+
+    // Utility Functions
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function safeEval(expr) {
+      try {
+        return Function('"use strict"; return (' + expr + ')')();
+      } catch (e) {
+        return NaN;
+      }
+    }
+
+    // DOM Elements - SIMPLIFIED SELECTORS
+    const menuBtns = document.querySelectorAll('.menu button');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    // View Switching
+    menuBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        menuBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Show selected section
+        const viewId = btn.getAttribute('data-view');
+        contentSections.forEach(section => {
+          section.classList.remove('active');
+        });
+        document.getElementById(`view-${viewId}`).classList.add('active');
+      });
+    });
+
+    // Game Elements
+    const levelLabel = document.getElementById('level-label');
+    const drawBtn = document.getElementById('draw-btn');
+    const hintBtn = document.getElementById('hint-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const challengeTitle = document.getElementById('challenge-title');
+    const challengeDesc = document.getElementById('challenge-desc');
+    const answerInput = document.getElementById('answer-input');
+    const feedback = document.getElementById('feedback');
+    const scoreEl = document.getElementById('score');
+    const streakEl = document.getElementById('streak');
+    const livesEl = document.getElementById('lives');
+    const diffSelect = document.getElementById('difficulty');
+    const timeLimitEl = document.getElementById('time-limit');
+    const lbList = document.getElementById('lb-list');
+    const playerNameInput = document.getElementById('player-name');
+
+    // Slot Elements
+    const slotItems = [
+      document.getElementById('shirt-item'),
+      document.getElementById('pants-item'),
+      document.getElementById('shoes-item')
+    ];
+
+    // Difficulty Change
+    diffSelect.addEventListener('change', () => {
+      state.difficulty = diffSelect.value;
+      levelLabel.textContent = state.difficulty.charAt(0).toUpperCase() + state.difficulty.slice(1);
+      
+      // Update badge color
+      if (state.difficulty === 'beginner') {
+        levelLabel.style.background = 'var(--success)';
+      } else if (state.difficulty === 'intermediate') {
+        levelLabel.style.background = 'var(--primary)';
+      } else {
+        levelLabel.style.background = 'var(--accent)';
+      }
+
+      resetRound();
+    });
+
+    // Slot Animation
+    function animateSlots(finalValues, callback) {
+      state.isAnimating = true;
+      let duration = 800;
+      let start = null;
+      
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        
+        // Randomize numbers during animation
+        slotItems.forEach(el => el.textContent = randInt(1, 9));
+        
+        if (progress < duration) {
+          requestAnimationFrame(step);
+        } else {
+          // End animation, set real values
+          slotItems[0].textContent = finalValues[0];
+          slotItems[1].textContent = finalValues[1];
+          slotItems[2].textContent = finalValues[2];
+          state.isAnimating = false;
+          if (callback) callback();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Scenario Generator
+    function generateScenario() {
+      if (state.difficulty === 'beginner') {
+        const shirts = randInt(3, 6);
+        const pants = randInt(2, 5);
+        const shoes = randInt(2, 4);
+        return {
+          type: 'beginner',
+          title: 'School Presentation',
+          desc: `Luna needs a simple outfit (Top + Bottom + Shoes). Based on the counts shown in the inventory slots, how many unique combinations are there?`,
+          slots: [shirts, pants, shoes],
+          expected: shirts * pants * shoes
+        };
+      }
+
+      if (state.difficulty === 'intermediate') {
+        const topsTotal = randInt(5, 8);
+        const topsValid = randInt(2, topsTotal - 1);
+        const bottomsTotal = randInt(4, 6);
+        const bottomsValid = randInt(1, bottomsTotal - 1);
+        const shoesTotal = randInt(3, 5);
+        const shoesValid = randInt(1, shoesTotal - 1);
+        
+        return {
+          type: 'intermediate',
+          title: 'Pastel Theme Party',
+          desc: `Theme: <strong>Pastel Only</strong>. <br>Top Slot: ${topsTotal} total (only ${topsValid} are pastel). <br>Bottom Slot: ${bottomsTotal} total (only ${bottomsValid} are pastel). <br>Shoes Slot: ${shoesTotal} total (only ${shoesValid} match).`,
+          slots: [topsTotal, bottomsTotal, shoesTotal],
+          expected: topsValid * bottomsValid * shoesValid
+        };
+      }
+
+      // Advanced
+      const tTot = randInt(7, 10);
+      const tBad = randInt(2, 5);
+      const bTot = randInt(5, 8);
+      const bBad = randInt(1, 3);
+      const sTot = randInt(3, 6);
+      
+      return {
+        type: 'advanced',
+        title: 'Travel: Wrinkle-Free',
+        desc: `Luna is packing. Ironing is NOT allowed.<br>Tops: ${tTot} total (${tBad} wrinkle easily).<br>Bottoms: ${bTot} total (${bBad} wrinkle easily).<br>Shoes: ${sTot} total (all safe).<br>How many wrinkle-free outfits?`,
+        slots: [tTot, bTot, sTot],
+        expected: (tTot - tBad) * (bTot - bBad) * sTot
+      };
+    }
+
+    // Game Flow
+    function newRound() {
+      console.log('Generating new round...');
+      if (state.isAnimating) return;
+      
+      // Reset UI
+      feedback.textContent = '';
+      answerInput.value = '';
+      answerInput.classList.remove('shake');
+      
+      state.roundData = generateScenario();
+      
+      // Animate Slots
+      animateSlots(state.roundData.slots, () => {
+        // After animation finishes
+        challengeTitle.innerHTML = state.roundData.title;
+        challengeDesc.innerHTML = state.roundData.desc;
+        answerInput.focus();
+        
+        // Start Timer
+        const t = state.difficulty === 'beginner' ? 60 : state.difficulty === 'intermediate' ? 45 : 30;
+        startTimer(t);
+      });
+    }
+
+    function resetRound() {
+      clearInterval(state.timer);
+      state.score = 0;
+      state.streak = 0;
+      state.lives = 3;
+      updateStats();
+      feedback.textContent = '';
+      challengeTitle.textContent = "Ready?";
+      challengeDesc.textContent = "Press Generate to start.";
+      slotItems.forEach(el => el.textContent = "?");
+      timeLimitEl.textContent = "60";
+    }
+
+    function updateStats() {
+      scoreEl.textContent = state.score;
+      streakEl.textContent = state.streak;
+      livesEl.textContent = "♥".repeat(state.lives);
+      
+      // Trigger score animation
+      scoreEl.classList.remove('pop');
+      void scoreEl.offsetWidth; // trigger reflow
+      scoreEl.classList.add('pop');
+    }
+
+    function startTimer(seconds) {
+      clearInterval(state.timer);
+      state.timeLeft = seconds;
+      timeLimitEl.textContent = seconds;
+      
+      state.timer = setInterval(() => {
+        state.timeLeft--;
+        timeLimitEl.textContent = state.timeLeft;
+        if (state.timeLeft <= 0) {
+          clearInterval(state.timer);
+          handleResult(false, true); // timeout
+        }
+      }, 1000);
+    }
+
+    // Event Listeners
+    drawBtn.addEventListener('click', newRound);
+
+    hintBtn.addEventListener('click', () => {
+      console.log('Hint clicked');
+      if (!state.roundData) return;
+      let h = '';
+      if (state.roundData.type === 'beginner') h = 'Simply multiply the numbers in the three slots.';
+      else if (state.roundData.type === 'intermediate') h = 'Ignore the total counts. Multiply only the "valid/pastel" counts mentioned in the text.';
+      else h = 'Subtract the "wrinkle" items from the totals first. (Total - Bad) × ...';
+      feedback.innerHTML = `<span style="color: var(--highlight)">💡 ${h}</span>`;
+    });
+
+    submitBtn.addEventListener('click', () => {
+      console.log('Submit clicked');
+      if (!state.roundData) return;
+      const raw = answerInput.value.trim();
+      if (!raw) return;
+      
+      const val = safeEval(raw);
+      if (Number.isNaN(val) || typeof val !== 'number') {
+        feedback.textContent = "Invalid number format.";
+        return;
+      }
+      
+      const correct = Math.floor(val) === Math.floor(state.roundData.expected);
+      handleResult(correct);
+    });
+
+    function handleResult(isCorrect, isTimeout = false) {
+      clearInterval(state.timer);
+      
+      if (isCorrect) {
+        // Calc Score
+        const base = state.difficulty === 'beginner' ? 100 : state.difficulty === 'intermediate' ? 200 : 350;
+        const bonus = Math.floor(state.timeLeft * 2) + (state.streak * 20);
+        const total = base + bonus;
+        
+        state.score += total;
+        state.streak++;
+        feedback.innerHTML = `<span style="color: var(--success)">✨ Correct! +${total} points</span>`;
+        updateStats();
+        setTimeout(newRound, 1500); // Auto next round
+      } else {
+        // Wrong
+        state.lives--;
+        state.streak = 0;
+        updateStats();
+        
+        if (isTimeout) {
+          feedback.innerHTML = `<span style="color: var(--danger)">⏰ Time Up! Answer: ${state.roundData.expected}</span>`;
+        } else {
+          feedback.innerHTML = `<span style="color: var(--danger)">❌ Wrong. Answer: ${state.roundData.expected}</span>`;
+          answerInput.classList.add('shake');
+          setTimeout(() => answerInput.classList.remove('shake'), 500);
+        }
+
+        if (state.lives <= 0) {
+          endGame();
+        } else {
+          setTimeout(newRound, 2000);
+        }
+      }
+    }
+
+    function endGame() {
+      feedback.innerHTML = `<strong style="color: var(--accent)">GAME OVER</strong> Final Score: ${state.score}`;
+      saveScore();
+      drawBtn.disabled = true;
+      setTimeout(() => { 
+        drawBtn.disabled = false; 
+        state.score = 0; 
+        updateStats(); 
+        resetRound(); 
+      }, 3000);
+    }
+
+    // Leaderboard System
+    function loadLeaderboard() {
+      const raw = localStorage.getItem('oc_leaderboard');
+      return raw ? JSON.parse(raw) : [];
+    }
+
+    function saveScore() {
+      const name = (playerNameInput.value || 'Guest').slice(0, 15);
+      const lb = loadLeaderboard();
+      lb.push({ 
+        name: name, 
+        score: state.score, 
+        date: new Date().toLocaleDateString(),
+        difficulty: state.difficulty 
+      });
+      
+      // Sort by score (descending) and keep top 5
+      lb.sort((a, b) => b.score - a.score);
+      const topScores = lb.slice(0, 5);
+      
+      localStorage.setItem('oc_leaderboard', JSON.stringify(topScores));
+      renderLB();
+    }
+
+    function renderLB() {
+      const lb = loadLeaderboard();
+      lbList.innerHTML = '';
+      
+      if (lb.length === 0) {
+        lbList.innerHTML = '<li style="color: var(--text-muted); text-align: center; padding: 20px;">No records yet. Be the first!</li>';
+      } else {
+        lb.forEach((entry, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>#${index + 1} ${entry.name} (${entry.difficulty})</span>
+            <span>${entry.score}</span>
+          `;
+          lbList.appendChild(li);
+        });
+      }
+    }
+
+    // Initialize
+    function init() {
+      console.log('Initializing game...');
+      
+      // Set initial difficulty badge color
+      levelLabel.style.background = 'var(--success)';
+      
+      // Load and render leaderboard
+      renderLB();
+      
+      // Set up player name from localStorage if available
+      const savedName = localStorage.getItem('oc_player_name');
+      if (savedName) {
+        playerNameInput.value = savedName;
+      }
+      
+      // Save player name when changed
+      playerNameInput.addEventListener('change', () => {
+        localStorage.setItem('oc_player_name', playerNameInput.value);
+      });
+      
+      // Allow Enter key to submit
+      answerInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') submitBtn.click();
+      });
+      
+      // Initialize game state
+      resetRound();
+      
+      console.log('Game initialized successfully!');
+    }
+
+    // Start the game
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
